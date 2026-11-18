@@ -3,12 +3,13 @@ import diagnosis from "../data/diagnosis.json";
 import { judge } from "../lib/score";
 import ResultView from "./ResultView";
 import DebugPanel from "./DebugPanel";
-
+import { useState } from "react";
 function DiagnosisPlayer() {
   // ① 質問番号を useState で覚える
-  const currentQuestion = 0;
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  
   // ④ 回答記録を useState で覚える
-  const answers = {};
+  const [answers, setAnswers] = useState({});
 
   const question = diagnosis.questions[currentQuestion];
   const isFinished = question === undefined;
@@ -16,7 +17,8 @@ function DiagnosisPlayer() {
   // 次の質問へ進む（最後の質問では止まる）
   function handleNext() {
     if (currentQuestion < diagnosis.questions.length - 1) {
-      // ② ここで、質問番号を更新する
+      // ② ここで、質問番号を更新する]
+      setCurrentQuestion(currentQuestion + 1);
     }
   }
 
@@ -31,6 +33,7 @@ function DiagnosisPlayer() {
   // 「回答して進む」ボタンで使う（配布済み）
   function handleAnswerNext() {
     setCurrentQuestion(currentQuestion + 1);
+
   }
 
   // 最初の質問・空の回答記録へ戻す（配布済み）
@@ -66,15 +69,16 @@ function DiagnosisPlayer() {
             key={choice.id}
             className={choice.id === selectedId ? "choice selected" : "choice"}
             /* ⑤ onClick を書く */
+             onClick={() => handleChoose(choice)}
           >
             {choice.text}
           </button>
         ))}
       </div>
-
-      <button
+         <button
         className="next"
         /* ③ onClick を書く */
+        onClick={handleNext}
         /* ⑥ 実習②で、この7行を差し替える */
       >
         次へ
