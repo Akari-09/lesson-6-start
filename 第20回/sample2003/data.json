@@ -1,0 +1,5 @@
+[
+    { "name": "シンプルノート", "price": 300, "category": "文房具" },
+    { "name": "ボールペン", "price": 150, "category": "文房具" },
+    { "name": "キャンバストート", "price": 1200, "category": "雑貨" }
+]
